@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input:invalid {
+            border: 1px solid red
+        }
+
+        input:vvalid {
+            border: 1px solid black
+        }
+    </style>
+</head>
+
+<body>
+    <form id='form'>
+        <label for="name">What's your name?</label>
+        <input id="name" name="name" required minlength='5' maxlength='20'>
+        <br>
+        <span id='name-too-short' hidden>Name is too short</span>
+        <span id='name-too-long' hidden>Name is too long</span>
+        <br>
+        <label for="age">What's your age?</label>
+        <input id="age" name="age" type='number' required min='0' max='150'>
+        <br>
+        <span id='age-too-high' hidden>Age is too high</span>
+        <span id='age-too-low' hidden>Age is too low</span>
+        <br>
+        <button type='submit'>Submit</button>
+    </form>
+    <script>
+        const form = document.querySelector('#form');
+        const name = document.querySelector('#name');
+        const age = document.querySelector('#age');
+        const nameTooShort = document.querySelector('#name-too-short');
+        const nameTooLong = document.querySelector('#name-too-long');
+        const ageTooLow = document.querySelector('#age-too-low');
+        const ageTooHigh = document.querySelector('#age-too-high');
+        form.onsubmit = (e) => {
+            e.preventDefault();
+        }
+        name.oninput = (e) => {
+            nameTooShort.hidden = true;
+            nameTooLong.hidden = true;
+            if (e.srcElement.validity.tooShort) {
+                nameTooShort.hidden = false;
+            }
+            if (e.srcElement.validity.tooLong) {
+                nameTooLong.hidden = false;
+            }
+        }
+        age.oninput = (e) => {
+            ageTooLow.hidden = true;
+            ageTooHigh.hidden = true;
+            if (e.srcElement.validity.rangeOverflow) {
+                ageTooHigh.hidden = false;
+            }
+            if (e.srcElement.validity.rangeUnderflow) {
+                ageTooLow.hidden = false;
+            }
+        }
+    </script>
+</body>
+
+</html>

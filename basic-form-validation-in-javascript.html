@@ -1,0 +1,63 @@
+<html>
+
+<head>
+    <title>Form Validation</title>
+    <script type="text/javascript">
+    // Form validation will go here
+    </script>
+</head>
+
+<body>
+    <form id="form">
+        <table cellspacing="2" cellpadding="2" border="1">
+            <tr>
+                <td align="right">Username</td>
+                <td><input type="text" id="username" /></td>
+            </tr>
+            <tr>
+                <td align="right">Email Address</td>
+                <td><input type="text" id="email-address" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" value="Submit" id="submit-btn" /></td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        const submitBtn = document.getElementById('submit-btn');
+
+        const validate = (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username');
+            const emailAddress = document.getElementById('email-address');
+            if (username.value === "") {
+                alert("Please enter your username.");
+                username.focus();
+                return false;
+            }
+
+            if (emailAddress.value === "") {
+                alert("Please enter your email address.");
+                emailAddress.focus();
+                return false;
+            }
+
+            if (!emailIsValid(emailAddress.value)) {
+                alert("Please enter a valid email address.");
+                emailAddress.focus();
+                return false;
+            }
+
+            return true; // Can submit the form data to the server
+        }
+
+        const emailIsValid = email => {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        submitBtn.addEventListener('click', validate);
+    </script>
+</body>
+
+</html>
